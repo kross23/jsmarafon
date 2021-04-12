@@ -3,6 +3,7 @@
 const $arenas = document.querySelector('.arenas');
 const $randomButton = document.querySelector('.button');
 class Players{
+    elementLife ='';
     constructor(name,hp,src,weapon,player){
 this.name = name;
 this.player=player;
@@ -12,7 +13,24 @@ this.img = src;
 }; 
     attack(){
         console.log('atack  '+this.name+'  atack');
+    };
+     changeHP(N) {
+         if(this.hp - N <= 0){
+            this.hp=0;
+            return 0;
+         }else{
+            this.hp -= N;
+            return this.hp;
+         }
+    };
+    elHP ()  {
+         this.elementLife = document.querySelector(`.player${this.player} .life`);
+         
     }
+     renderHP(){
+        this.elementLife.style.width =`${this.hp}%`;
+    }
+
 };
 const pl1 = new Players('zomby',100,'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',['pistol','automat'],1);
 const pl2 = new Players('valentyn',100,'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',['pistol','automat'],2);
@@ -51,50 +69,23 @@ const createPlayer=({name, hp, img, player}) => {
     $player.appendChild($character);
     return $player;
 };
-const playerLose = (name) => {
-    const $loseTitle = createElement('div','loseTitle');
-    $loseTitle.textContent =`lose ${name}`;
-    return $loseTitle; 
-    };
-    const playerWin = (name) => {
-        const $WinTitle = createElement('div','winTitle');
+
+const playerWin = (name='drawe') => {
+    const $WinTitle = createElement('div','winTitle');
         $WinTitle.textContent =`win ${name}`;
-        return $WinTitle; 
-        };
-
-const chaNgeHp = (players) => {
-    if(players[0].hp > 0 && players[1].hp > 0 ){
-        const player = getRandomPlayer(); 
-        const curent= players[`${player}`];
-        const $playerLive = document.querySelector(`.player${curent.player} .life`);
-        const n = getRandomIntInclusive();
-        curent.hp -= n;
-        $playerLive.style.width =`${curent.hp}%`;
-        if(curent.hp <= 0){
-            curent.hp -= 0;
-            $playerLive.style.width =`${0}%`;
-            let result = players.find(function(item) {
-                if(curent.name !== item.name){
-                    return true;
-                }
-              });
-            $arenas.appendChild(playerLose(curent.name));
-            $arenas.appendChild(playerWin(result.name));
-        }
-
-    }else{
-        return;
-    }
- 
-
-
+    return $WinTitle; 
 };
-
 $arenas.appendChild(createPlayer( pl1));
 $arenas.appendChild(createPlayer( pl2));
 const arrPl = [pl1,pl2];
-$randomButton.addEventListener('click', ()=>{
-   
-    chaNgeHp(arrPl);
 
-})
+
+$randomButton.addEventListener('click', ()=>{
+const temp = getRandomPlayer();
+  
+    arrPl[temp].changeHP(getRandomIntInclusive());
+    arrPl[temp].elHP();
+    arrPl[temp].renderHP();
+    $randomButton.disabled = !arrPl[temp].hp;
+    console.log('$randomButton.disabled: ', $randomButton.disabled);
+});
