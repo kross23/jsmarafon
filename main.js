@@ -162,10 +162,12 @@ const obj={
        const item = value;
         if(value.name === 'hit' ){
          obj.hit[item.value] = item.checked;
+         
          }else if(value.name === 'defence')
          {     
            obj.defence[item.value] = item.checked; 
          }
+         item.checked=false;
     };
 action(enemyAttack(), obj, pl1, pl2);
 });
