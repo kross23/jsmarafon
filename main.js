@@ -113,12 +113,15 @@ $reloadButton.addEventListener('click',() => {
     pl2.hp = 100;
     pl1.renderHP();
     pl2.renderHP();
+    
+    const $WinTitle = document.querySelector('.winTitle');
+    $arenas.removeChild($WinTitle);
     $arenas.removeChild($reloadButtonDiv);
 });
 $reloadButtonDiv.appendChild($reloadButton);
 $arenas.appendChild($reloadButtonDiv);
-
 }
+
 function action(hit,def,pl1,pl2){
     if(!def.defence[hit.hit]){
         pl1.changeHP(hit.value);
@@ -149,7 +152,6 @@ function action(hit,def,pl1,pl2){
 $arenas.appendChild(createPlayer( pl1));
 $arenas.appendChild(createPlayer( pl2));
 
-
 $form.addEventListener('submit', (e)=>{
 e.preventDefault();
 const obj={
@@ -165,10 +167,7 @@ const obj={
            obj.defence[item.value] = item.checked; 
          }
     };
-  
 action(enemyAttack(), obj, pl1, pl2);
-
-
 });
 
 
