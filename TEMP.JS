@@ -9,7 +9,10 @@
                 curent.hp = 0;
                 $playerLive.style.width =`${0}%`;
               
-            //     $arenas.appendChild(playerLose(curent.name));
-            //     
-            //    
+      
              }
+
+// http://reactmarathon-api.herokuapp.com/assets/liukang-dizzy.gif
+// http://reactmarathon-api.herokuapp.com/assets/liukang-falling.gif
+// http://reactmarathon-api.herokuapp.com/assets/scorpion-win.gif
+// http://reactmarathon-api.herokuapp.com/assets/kitana-win.gif
